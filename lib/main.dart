@@ -42,8 +42,9 @@ class MyFirstList extends StatefulWidget {
 
 class _MyFirstListState extends State<MyFirstList> {
   List<String> talks;
-  //TODO: 4.1) Use the documentation to implement the TextEditingController
-  TextEditingController _textController = TextEditingController();
+  //done: 4.1) Use the documentation to implement the TextEditingController:
+  ///  * Learn how to use a [TextEditingController] in one of our [cookbook recipes](https://flutter.dev/docs/cookbook/forms/text-field-changes#2-use-a-texteditingcontroller).
+  final TextEditingController _textController = TextEditingController();
 
   @override
   void initState() {
@@ -52,11 +53,23 @@ class _MyFirstListState extends State<MyFirstList> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    //TODO: 1) Implement the Scaffold (appBar and body)
-    return _myFancylist();
+  void dispose() {
+    // Clean up the controller when the widget is removed from the
+    // widget tree.
+    _textController.dispose();
+    super.dispose();
+  }
 
-    //TODO: 3) Implement the custom input text row
+  @override
+  Widget build(BuildContext context) {
+    //done: 1) Implement the Scaffold (appBar and body)
+    //old: return _myFancylist();
+    return Scaffold(
+      appBar: AppBar(title: Text(widget.title)),
+      body: _myFancylist(),
+      //done: 3) Implement the custom input text row
+      floatingActionButton: _inputTextRow(),
+    );
   }
 
   Widget _myFancylist() {
@@ -64,31 +77,56 @@ class _MyFirstListState extends State<MyFirstList> {
       padding: const EdgeInsets.all(20.0),
       itemCount: talks.length,
       itemBuilder: (BuildContext context, int index) {
-        return Text(talks[index]);
-        //TODO: 2) Remove the text widget and create a custom row
-        //todo return _listItem(context, index);
+        //old: return Text(talks[index]);
+        //done: 2) Remove the text widget and create a custom row
+        return _listItem(context, index);
       },
     );
   }
 
   Widget _listItem(contex, index) {
-    //TODO: 2.1) create a custom row using Card and ListTile (leading and title)
+    //done: 2.1) create a custom row using Card and ListTile (leading and title)
 
-    //TODO: 6) Wrap the custom row with the Dismissible widget
-    //TODO: 7) Implement onDismissed
+    //done: 6) Wrap the custom row with the Dismissible widget
+    //done: 7) Implement onDismissed
+    return Dismissible(
+      key: Key(talks[index]),
+      onDismissed: (direction) {
+        _showSnackBar(contex, index);
+        _removeTalk(index);
+      },
+      background: dismissableBackground(),
+      child: Card(
+        child: ListTile(
+          leading: const Icon(Icons.star),
+          title: Text(talks[index]),
+        ),
+      ),
+    );
   }
 
   Row _inputTextRow() {
     return Row(
       children: [
-        //TODO: 4) Implement the custom inputField (you can use the Expanded and Padding widgets)
-        //todo: _inputField()
-
+        //done: 4) Implement the custom inputField
+        //done: _inputField()
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            child: _inputField(),
+          ),
+        ),
         FloatingActionButton(
           tooltip: 'Add a talk',
           child: const Icon(Icons.send),
           onPressed: () {
-            //TODO 5) Call the setState if the text is not empty
+            //done 5) Call the setState if the text is not empty
+            if (_textController.text.isNotEmpty) {
+              setState(() {
+                talks.add(_textController.text);
+                _textController.text = '';
+              });
+            }
           },
         ),
       ],
@@ -97,7 +135,7 @@ class _MyFirstListState extends State<MyFirstList> {
 
   TextField _inputField() {
     return TextField(
-      //todo controller: ,
+      controller: _textController,
       textAlign: TextAlign.left,
     );
   }

@@ -1,16 +1,15 @@
 # flutter_list_starting_point
 
-A new Flutter project.
+In this project, we will see how to create an app containing:
+<ul>
+  <li>a list having draggable (dismissable) items</li>
+  <li>a text area to write some inputs</li>
+  <li>a button to update the list with the given input</li>
+</ul>
 
-## Getting Started
+<img src="https://github.com/MirkoRaimo/flutter_list_starting_point/blob/master/documentation/final_app_example.png" height="500">
 
-This project is a starting point for a Flutter application.
+You can find the final code on the branch <a href="https://github.com/MirkoRaimo/flutter_list_starting_point/tree/arrival_point">arrival_point</a>
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+and the slides I used during my presentation, clicking on <a href="https://docs.google.com/presentation/d/1IDZRSfDMsBAyoocDKm7DSAmrGwXG7XZkaggE9PktAgQ/edit?usp=sharing"> this link</a> <br>
+or directly inside in the documentation folder, present in this project.
